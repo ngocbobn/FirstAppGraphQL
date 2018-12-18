@@ -1,0 +1,52 @@
+type Query {
+  owner: User
+  users: [User!]!
+  songs: [Song]
+  lyrics: [Lyric]
+}
+
+type Mutation {
+  signup(username: String!, password: String): TypeReturn
+  login(username: String!, password: String): TypeReturn
+  createNewSong(title: String!): TypeReturn
+  likeSong(id: String!): Song
+}
+
+type TypeReturn {
+  token: String,
+  title: String,
+  id: String,
+  likes: String
+}
+
+type User {
+  id: ID
+  username: String
+  password: String
+}
+
+type Song {
+  id: ID!
+  title: String!
+  likes: Int
+  owner: User
+  lyrics: [Lyric]
+}
+
+type Lyric {
+  id: ID!
+  content: String!
+  likes: Int
+  owner: User
+  song: Song!
+}
+
+type Subscription {
+  createNewSongSub: TypeReturn
+  likeSongSub: TypeReturn
+}
+
+#type Subscription {
+  #newLink: LinkSubscriptionPayload
+  #newVote: VoteSubscriptionPayload
+#}
